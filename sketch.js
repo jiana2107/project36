@@ -1,8 +1,9 @@
 //Create variables here
 var dog,hDog,dogI,foodS,foodStock;
+var food;
 var database;
 var position;
-var feed,addFood;
+var feed;
 var fedTime,lastFed;
 var foodObj;
 var milkI;
@@ -27,9 +28,9 @@ function setup() {
   feed.position(200,120)
   feed.mousePressed(feedDog)
 
-  addFood=createButton("ADD FOOD")
-  addFood.position(200,150)
-  addFood.mousePressed(addFood)
+ // addFood=createButton("ADD FOOD")
+//  addFood.position(200,150)
+ // addFood.mousePressed(addFood)
 
   foodObj=new Food()
   foodObj.getFoodStock()
@@ -48,6 +49,14 @@ function draw() {
 
   //fill("black")
   //text("PRESS UP_ARROW KEY TO FEED DRAGO MIKI!!",250,50)
+
+  fedTime=database.ref('feedTime')
+  fedTime.on("value",function(data){
+    lastFed=data.val()
+  })
+
+  
+
   fill(255,255,254)
   textSize(15)
 
@@ -67,10 +76,9 @@ function draw() {
 //functions
 function addFood(){
   foodObj.foodStock=foodObj.foodStock+1;
-  database.ref('/').update({
-    food:foodObj.foodStock})
+  foodObj.updateFoodStock(foodObj.foodStock);
 }
-
+ 
 function feedDog(){
   dog.addImage(hDog)
   dog.position.x=500;

@@ -1,11 +1,13 @@
 class Food{
+
     constructor(){
         this.foodStock=null;
-       // this.button;
+        this.addFood=createButton('ADD FOOD')
     }
 
     display(){
       var x=80,y=100;
+      this.addFood.position(200,150)
 
       imageMode(CENTER)
       
@@ -20,6 +22,10 @@ class Food{
             x=x+20;
           }
       }
+
+      this.addFood.mousePressed(()=>{
+        foodObj.updateFoodStock(x)
+      })
     }
 
      getFoodStock(){
@@ -30,14 +36,27 @@ class Food{
     }
     
   updateFoodStock(x){  
-      if(x<=0){
-        x=0
+      if(x>0){
+        x=20
       }
       database.ref('/').update({
         food:x})
     }
+
+ /*updateFood(food){
+    if(foodObj.foodStock<1){
+      var f1=database.ref('food').set({
+        food:20
+      })
+    }
+  }*/
     
-   deductFood(){
-    //this.foodStock=this.foodStock-1;
+   /*deductFood(x){
+    if(x>=0){
+      x=10
+    }
+    database.ref('/').update({
+      food:x})
+  }*/
+  
    }
-}
